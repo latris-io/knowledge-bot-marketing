@@ -109,21 +109,21 @@
       </div>
     </section>
 
-    <!-- High-Impact Use Cases -->
+    <!-- Use Cases -->
     <section class="section use-cases" data-viewport>
       <h2 class="section-heading center">High-Impact Use Cases</h2>
       <p class="section-subhead center">Driving measurable ROI from day one</p>
 
-      <!-- 3 categories arranged: stacked on mobile, 3 across on desktop -->
       <div class="use-case-categories">
-        <!-- Revenue Growth: Instant Website Conversion -->
+        <!-- Revenue Growth -->
         <div class="use-case-category">
           <h3 class="category-title">Revenue Growth</h3>
           <div class="use-case-grid">
             <div class="use-case-card">
               <div class="uc-icon" aria-hidden="true">
                 <!-- chat/message icon -->
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
+                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
                 </svg>
               </div>
@@ -133,14 +133,15 @@
           </div>
         </div>
 
-        <!-- Cost Savings: Support Deflection (dollar sign icon) -->
+        <!-- Cost Savings -->
         <div class="use-case-category">
           <h3 class="category-title">Cost Savings</h3>
           <div class="use-case-grid">
             <div class="use-case-card">
               <div class="uc-icon" aria-hidden="true">
-                <!-- dollar sign icon -->
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true">
+                <!-- refined dollar icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
+                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <line x1="12" y1="2" x2="12" y2="22"/>
                   <path d="M17 6H9.5a3.5 3.5 0 0 0 0 7H14a3.5 3.5 0 0 1 0 7H7"/>
                 </svg>
@@ -151,14 +152,15 @@
           </div>
         </div>
 
-        <!-- Strategic Value: Single Source of Truth -->
+        <!-- Strategic Value -->
         <div class="use-case-category">
           <h3 class="category-title">Strategic Value</h3>
           <div class="use-case-grid">
             <div class="use-case-card">
               <div class="uc-icon" aria-hidden="true">
                 <!-- search icon -->
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
+                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <circle cx="11" cy="11" r="7"/>
                   <path d="m21 21-4.3-4.3"/>
                 </svg>
@@ -185,7 +187,7 @@
     </footer>
   </main>
 
-  <!-- Sticky CTA triggers modal -->
+  <!-- Sticky CTA -->
   <div class="cta">
     <button class="cta-btn" id="openModalBtn" type="button">
       Experience it Live
@@ -209,6 +211,7 @@
     </div>
   </div>
 
+  <!-- Simple, single-click modal handler -->
   <script>
     (function () {
       const modal = document.getElementById('exitModal');
@@ -216,29 +219,34 @@
       const continueBtn = document.getElementById('continueBtn');
       const cancelBtn = document.getElementById('cancelBtn');
       const redirectURL = 'https://www.clearlyclear.com';
+      let isOpen = false;
 
       function openModal() {
+        if (isOpen) return;
+        isOpen = true;
         modal.setAttribute('open', '');
         modal.removeAttribute('aria-hidden');
         document.body.classList.add('no-scroll');
-        setTimeout(() => continueBtn.focus(), 0);
+        setTimeout(() => continueBtn && continueBtn.focus(), 0);
       }
       function closeModal() {
+        isOpen = false;
         modal.removeAttribute('open');
         modal.setAttribute('aria-hidden', 'true');
         document.body.classList.remove('no-scroll');
-        openBtn.focus();
+        openBtn && openBtn.focus();
       }
 
       openBtn.addEventListener('click', (e) => { e.preventDefault(); openModal(); });
       continueBtn.addEventListener('click', () => { window.location.href = redirectURL; });
       cancelBtn.addEventListener('click', closeModal);
 
+      // Close on Escape
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && modal.hasAttribute('open')) closeModal();
       });
 
-      // Focus trap
+      // Focus trap in modal
       modal.addEventListener('keydown', (e) => {
         if (e.key !== 'Tab') return;
         const f = modal.querySelectorAll('button, [href], [tabindex]:not([tabindex="-1"])');
@@ -248,7 +256,7 @@
         else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
       });
 
-      // Click outside to close
+      // Click outside card to close
       modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
     })();
   </script>
